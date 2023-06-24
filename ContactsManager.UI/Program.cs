@@ -55,8 +55,9 @@ if (builder.Environment.IsEnvironment("Test") == false)
     Rotativa.AspNetCore.RotativaConfiguration.Setup("wwwroot", wkhtmltopdfRelativePath: "Rotativa");
 
 app.UseStaticFiles();
-app.UseRouting();
-app.MapControllers();
+app.UseAuthentication(); // This is to read the cookies
+app.UseRouting(); // Identifying action method based on the route
+app.MapControllers(); //Is responsible for execution of filter pipeline (actions + filters)
 app.Run();
 
 //This piece of code makes the program a partial class // This will only be accessible in the test project

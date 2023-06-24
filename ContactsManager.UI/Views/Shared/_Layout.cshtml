@@ -9,10 +9,13 @@
 </head>
 <body>
     <div class="container">
-        <div class="page-content"> @*Entire page container*@
+        <div class="page-content">
+            @*Entire page container*@
 
-            <div class="margin-bottom"> @*Container for the header tab*@
-                <div class="flex" id="top-bar-div"> @*This creates the separation side by side, in our case divaded in two*@
+            <div class="margin-bottom">
+                @*Container for the header tab*@
+                <div class="flex" id="top-bar-div">
+                    @*This creates the separation side by side, in our case divaded in two*@
                     <div class="flex-1" id="app-title-div">
                         <h1 class="app-title">
                             <i class="fa-solid fa-people-simple"></i>
@@ -21,12 +24,18 @@
                     </div>
 
 
-                    <div class="flex-1 pr" id="search-box-div"> @*pr means padding right*@
+                    <div class="flex-1 pr" id="search-box-div">
+                        @*pr means padding right*@
                         <div class="navbar account-links">
 
                             <ul>
                                 <li>
+                                    @User.Identity?.Name
+                                </li>
+                                <li>
                                     <a asp-controller="Account" asp-action="Register">Register</a>
+                                </li>
+                                <li>
                                     <a asp-controller="Account" asp-action="Login">Login</a>
                                 </li>
                             </ul>

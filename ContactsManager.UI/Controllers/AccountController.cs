@@ -10,9 +10,11 @@ namespace ContactsManager.UI.Controllers
     public class AccountController :Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
+            _signInManager = signInManager;
             _userManager = userManager;
         }
 
@@ -38,6 +40,9 @@ namespace ContactsManager.UI.Controllers
             IdentityResult result = await _userManager.CreateAsync(user, registerDTO.Password);
             if (result.Succeeded)
             {
+                //Sign in
+                await _signInManager.SignInAsync(user, isPersistent: false); // If we leave true it will persist even if the browser is closed
+                //Return to persons/Index
                 return RedirectToAction(nameof(PersonsController.Index), "Persons"); // First action name, then controller name
             }
             else
