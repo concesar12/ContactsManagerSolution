@@ -59,6 +59,7 @@ namespace CRUDExample
             services.AddIdentity<ApplicationUser, ApplicationRole>(
                 options =>
                 {
+                    //This is optional to make it customizable, but if I don't include any of this, asp will put default security
                     options.Password.RequiredLength = 5;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
