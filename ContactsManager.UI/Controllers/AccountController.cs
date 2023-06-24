@@ -65,7 +65,7 @@ namespace ContactsManager.UI.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginDTO loginDTO)
+        public async Task<IActionResult> Login(LoginDTO loginDTO, string? ReturnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -77,6 +77,10 @@ namespace ContactsManager.UI.Controllers
 
             if (result.Succeeded)
             {
+                if(!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
+                {
+                    return LocalRedirect(ReturnUrl); //This is done in order to avoid hackers to append other directions to our URL // Local means same domain
+                }
                 return RedirectToAction(nameof(PersonsController.Index), "Persons");
             }
 
