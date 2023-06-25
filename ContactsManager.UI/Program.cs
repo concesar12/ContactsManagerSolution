@@ -61,6 +61,16 @@ app.UseAuthentication(); // This is to read the cookies
 app.UseAuthorization(); //Evaluates if the particular user has access or not
 app.MapControllers(); //Is responsible for execution of filter pipeline (actions + filters)
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+     name: "default",
+     pattern: "{controller}/{action}"
+     );
+});
+
+//Eg: /persons/edit/1
+
 app.Run();
 
 //This piece of code makes the program a partial class // This will only be accessible in the test project
