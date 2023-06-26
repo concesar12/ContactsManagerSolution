@@ -56,18 +56,23 @@ if (builder.Environment.IsEnvironment("Test") == false)
     Rotativa.AspNetCore.RotativaConfiguration.Setup("wwwroot", wkhtmltopdfRelativePath: "Rotativa");
 
 app.UseStaticFiles();
+
 app.UseRouting(); // Identifying action method based on the route
 app.UseAuthentication(); // This is to read the cookies
 app.UseAuthorization(); //Evaluates if the particular user has access or not
 app.MapControllers(); //Is responsible for execution of filter pipeline (actions + filters)
 
-app.UseEndpoints(endpoints =>
-{
+app.UseEndpoints(endpoints => {
+    endpoints.MapControllerRoute(
+     name: "areas",
+     pattern: "{area:exists}/{controller=Home}/{action=Index}");
+
+    //Admin/Home/Index
+    //Admin
     endpoints.MapControllerRoute(
      name: "default",
-     pattern: "{controller}/{action}"
-     );
-});
+     pattern: "{controller}/{action}");
+ });
 
 //Eg: /persons/edit/1
 
