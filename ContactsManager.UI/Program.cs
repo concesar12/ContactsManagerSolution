@@ -36,10 +36,14 @@ else
     app.UseExceptionHandlingMiddleware();
 }
 
+//Enforce web to use HTTPS for requests and responses
+app.UseHsts();
+
+//Enable https
+app.UseHttpsRedirection();
+
 //Add the diagnostics serilog
 app.UseSerilogRequestLogging();
-
-
 
 //Enable http logging
 app.UseHttpLogging();
