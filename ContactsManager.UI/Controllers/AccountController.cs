@@ -32,6 +32,7 @@ namespace ContactsManager.UI.Controllers
 
         [HttpPost]
         [Authorize("NotAuthorized")]
+        //[ValidateAntiForgeryToken] we will enable globally
         public async Task<IActionResult> Register(RegisterDTO registerDTO)
         {
             //Store user registration details into Identity database
@@ -62,6 +63,13 @@ namespace ContactsManager.UI.Controllers
                 }
                 else
                 {
+                    //Create 'User' role
+                    if (await _roleManager.FindByNameAsync(UserTypeOptions.User.ToString()) is null)
+                    {
+                        ApplicationRole applicationRole = new ApplicationRole() { Name = UserTypeOptions.User.ToString() };
+                        await _roleManager.CreateAsync(applicationRole);
+                    }
+
                     //Add the new user into 'User' role
                     await _userManager.AddToRoleAsync(user, UserTypeOptions.User.ToString());
                 }
